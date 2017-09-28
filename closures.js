@@ -14,11 +14,11 @@ function outer() {
   closure over the name variable. Invoke outer saving the return value into
   another variable called 'inner'. */
   
-  // Code Here
+  var inner = outer();  // Code Here
   
   //Once you do that, invoke inner.
   
-  //Code Here
+  inner();  //Code Here
   
   
   
@@ -50,7 +50,10 @@ function outer() {
   (HINT: You will need to pass in arguments to both function invocations)
   */
   
-    //Code Here
+  function callJake(num){
+    var call = callFriend('Jake');
+    return call(num);
+  }    //Code Here
   
   
   
@@ -68,14 +71,20 @@ function outer() {
   /* Write a function called makeCounter that makes the following code work
   properly. */
   
-  //Code Here
+  function makeCounter(){
+    var count = 0;
+    return function(){
+      count++;
+      return count;
+    }
+  }  //Code Here
   
   //Uncomment this once you make your function
-  //   var count = makeCounter();
-  //   count(); // 1
-  //   count(); // 2
-  //   count(); // 3
-  //   count(); // 4
+    var count = makeCounter();
+    count(); // 1
+    count(); // 2
+    count(); // 3
+    count(); // 4
   
   
   
@@ -103,10 +112,16 @@ function outer() {
   function counterFactory(value) {
   
     // Code here.
-  
-  
-    return {
 
+    return {
+      inc: function() {
+        value++;
+        return value;
+      },
+      dec: function() {
+        value--;
+        return value;
+      }
     }
   }
   
@@ -141,11 +156,13 @@ function outer() {
   
     var welcomeText = 'You\'re doing awesome, keep it up ';
   
-    // code message function here.
+  function message(){
+    return welcomeText + firstname + " " + lastname + ".";
+  }   // code message function here.
   
   
     //Uncommment this to return the value of your message function
-    //return message;
+    return message;
   
   }
   
@@ -183,7 +200,9 @@ function outer() {
     // Anything that is being returned is made public and can be invoked from
     // outside our lexical scope
     return {
-      // Code here.
+      publicMethod: function(){
+        return privateMethod();
+      }  // Code here.
     };
   
   })();
@@ -202,7 +221,12 @@ function outer() {
     var secret = 143;
 
     return {
-      // Code here
+     addToSecret: function(num){
+       return secret += num;
+     },  // Code here
+     takeAwayFromSecret: function(num){
+       return secret -= num;
+     }
     }
   }
   
@@ -230,10 +254,12 @@ function outer() {
   
   function timeOutCounter() {
     for (var i = 0; i <= 5; i++) {
-      setTimeout(function() {
-          console.log(i)
-      }, i * 1000)
+      function memory(counter){
+        setTimeout(function() {
+          console.log(counter)
+        }, i * 1000)
+      }
+      memory(i);
     }
   }
-  timeOutCounter();
-  
+  timeOutCounter();  
